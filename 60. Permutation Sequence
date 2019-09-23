@@ -1,0 +1,38 @@
+class Solution {
+public:
+
+
+    int fac(int f){
+        int F=1;
+        for(int i=2;i<=f;i++){
+                F=F*i;
+            }
+        return F;
+    }
+
+
+    string getPermutation(int n, int k) {
+        vector<int> res;
+        string s;
+        if(n==0){
+            return s;
+        }
+        for(int i=0;i<n;i++){
+            res.push_back(i+1);
+        }
+        if (k==0){
+            for(int i=0;i<n;i++)
+            s.push_back(i+1);
+            return s;
+        }
+        k--;
+        while (s.size()!=n){
+            int fact=fac(res.size()-1);
+            int del=k/fact;
+            k=k-del*fact;
+            s.push_back(res[del]+'0');
+            res.erase(res.begin()+del);
+        }
+        return s;
+    }
+};
