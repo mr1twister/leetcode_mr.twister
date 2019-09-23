@@ -1,13 +1,28 @@
 class Solution {
 public:
     int trailingZeroes(int n) {
-        long int fac=1;
-        for(int i = 1; i<=n; i++){
-            fac=fac*i;
+        int res = 0;
+        while(n > 0){
+            n/=5;
+            res+=n;
         }
-        string s = to_string(fac);
-        long int col= 0;
-        for()
-        return col;
+        return res;
     }
 };
+
+int stringToInteger(string input) {
+    return stoi(input);
+}
+
+int main() {
+    string line;
+    while (getline(cin, line)) {
+        int n = stringToInteger(line);
+        
+        int ret = Solution().trailingZeroes(n);
+
+        string out = to_string(ret);
+        cout << out << endl;
+    }
+    return 0;
+}
