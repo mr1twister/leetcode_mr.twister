@@ -1,0 +1,38 @@
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+
+    ListNode *head = new ListNode{0};
+    ListNode *go = head;
+    int lol = 0;
+    int p = 0;
+    while (l1 || l2){
+        if (l1 && l2){
+            p = l1 -> val + l2 -> val + lol;
+        }
+        else if (l1){
+            p = l1 -> val + lol;
+        }
+        else{
+            p = l2 -> val + lol;
+        }
+
+        if(p >= 10){
+            lol = 1;
+            p = p -10;
+        }
+        else{
+            lol = 0;
+        }
+        go -> next = new ListNode{p};
+        if(l1)
+        l1 = l1 -> next;
+        if(l2)
+        l2 = l2 -> next;
+        go = go -> next;
+        }
+    if (lol == 1)
+    go -> next = new ListNode{1};
+    return head -> next;
+    }
+};
