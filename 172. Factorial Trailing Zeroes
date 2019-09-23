@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int trailingZeroes(int n) {
+        long int fac=1;
+        for(int i = 1; i<=n; i++){
+            fac=fac*i;
+        }
+        string s = to_string(fac);
+        long int col= 0;
+        for()
+        return col;
+    }
+};
