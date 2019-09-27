@@ -1,0 +1,71 @@
+https://leetcode.com/problems/self-dividing-numbers/submissions/
+class Solution {
+public:
+	void parse(int n, vector<int>& vec) {
+		vec.push_back(n % 10);
+		int temp = n / 10;
+		if (temp == 0) return;
+		parse(temp, vec);
+	}
+
+
+
+	vector<int> selfDividingNumbers(int left, int right) {
+
+
+		vector <int> r;
+		vector <int> v;
+		bool f;
+		for (int i = left; i <= right; i++) {
+			v.clear();
+			parse(i, v);
+			f = true;
+			for (int j = 0; j < v.size(); j++) {
+				if ((v[j] == 0) || (i % v[j] != 0)) {
+					f = false;
+					break;
+				}
+			}
+			if (f) {
+				r.push_back(i);
+			}
+		}
+		return r;
+	}
+};
+
+int stringToInteger(string input) {
+    return stoi(input);
+}
+
+string integerVectorToString(vector<int> list, int length = -1) {
+    if (length == -1) {
+        length = list.size();
+    }
+
+    if (length == 0) {
+        return "[]";
+    }
+
+    string result;
+    for(int index = 0; index < length; index++) {
+        int number = list[index];
+        result += to_string(number) + ", ";
+    }
+    return "[" + result.substr(0, result.length() - 2) + "]";
+}
+
+int main() {
+    string line;
+    while (getline(cin, line)) {
+        int left = stringToInteger(line);
+        getline(cin, line);
+        int right = stringToInteger(line);
+        
+        vector<int> ret = Solution().selfDividingNumbers(left, right);
+
+        string out = integerVectorToString(ret);
+        cout << out << endl;
+    }
+    return 0;
+}
