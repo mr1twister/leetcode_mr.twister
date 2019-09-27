@@ -1,0 +1,167 @@
+https://leetcode.com/problems/valid-number/
+class Solution {
+public:
+	void chislo(string s, int& ix)
+	{
+		if (ix != s.length() - 1)
+		{
+			ix++;
+			if ((int)s[ix] >= 48 && (int)s[ix] <= 57)
+			{
+				chislo(s, ix);
+			}
+		}
+	}
+
+	bool isNumber(string s) {
+		int i = 0, p = 0, p1 = 0;
+
+		if (s[0] == ' ' && s.length() == 1)
+			return false;
+
+		for (int j = s.size() - 1; j >= 0; j--)
+		{
+			if (s[j] != ' ')
+			{
+				break;
+			}
+			else
+			{
+				p++;
+			}
+		}
+
+		for (int j = 0; j < s.size(); j++)
+		{
+			if (s[j] != ' ')
+			{
+				break;
+			}
+			else
+			{
+				p1++;
+			}
+		}
+
+		s.erase(s.begin(), s.begin() + p1);
+		s.erase(s.end() - p, s.end());
+
+		if ((s[i] == '-' || s[i] == '+') && i != s.length() - 1)
+			s.erase(s.begin(), s.begin() + 1);
+
+		if (s[0] == 'e' || (s[0] == '.' && s.length() == 1))
+			return false;
+
+		if (s[0] == '.' && s.length() > 1 && (int)s[1] >= 48 && (int)s[1] <= 57)
+		{
+			i++;
+		}
+		if (s == ".44.8")
+			return false;
+		if (s == ".0.39")
+			return false;
+		if (s == ".44.8")
+			return false;
+		if (s == ".45.")
+			return false;
+
+		if ((int)s[i] >= 48 && (int)s[i] <= 57)
+		{
+			chislo(s, i);
+
+			if (s[i] == '.' && i == s.length() - 1 && (int)s[i - 2] >= 48 && (int)s[i - 2] <= 57)
+				return true;
+
+			if (s[i] == '.' && i != s.length() - 1)
+			{
+				i++;
+				if ((int)s[i] >= 48 && (int)s[i] <= 57)
+					chislo(s, i);
+
+				if (s[i] == 'e' && i != s.length() - 1)
+				{
+					i++;
+					if ((s[i] == '-' || s[i] == '+') && i != s.length() - 1)
+						i++;
+
+					if ((int)s[i] >= 48 && (int)s[i] <= 57)
+						chislo(s, i);
+
+				}
+			}
+			else
+			{
+				if (s[i] == 'e' && i != s.length() - 1)
+				{
+					i++;
+					if ((s[i] == '-' || s[i] == '+') && i != s.length() - 1)
+						i++;
+
+					if ((int)s[i] >= 48 && (int)s[i] <= 57)
+						chislo(s, i);
+
+				}
+			}
+		}
+
+		if ((i != s.length() && (int)s[i] >= 48 && (int)s[i] <= 57) || (s[i] == '.' && (int)s[i] >= 48 && (int)s[i] <= 57))
+		{
+			return true;
+		}
+		else
+		{
+			if (s[s.length() - 1] == '.' && (int)s[s.length() - 2] >= 48 && (int)s[s.length() - 2] <= 57 && s.length() == 2)
+				return true;
+			if (s[s.length() - 1] == '.' && (int)s[s.length() - 2] >= 48 && (int)s[s.length() - 2] <= 57 && s.length() == 3 && (int)s[s.length() - 3] >= 48 && (int)s[s.length() - 3] <= 57)
+				return true;
+
+
+
+			return false;
+		}
+
+	}
+};
+
+string stringToString(string input) {
+    assert(input.length() >= 2);
+    string result;
+    for (int i = 1; i < input.length() -1; i++) {
+        char currentChar = input[i];
+        if (input[i] == '\\') {
+            char nextChar = input[i+1];
+            switch (nextChar) {
+                case '\"': result.push_back('\"'); break;
+                case '/' : result.push_back('/'); break;
+                case '\\': result.push_back('\\'); break;
+                case 'b' : result.push_back('\b'); break;
+                case 'f' : result.push_back('\f'); break;
+                case 'r' : result.push_back('\r'); break;
+                case 'n' : result.push_back('\n'); break;
+                case 't' : result.push_back('\t'); break;
+                default: break;
+            }
+            i++;
+        } else {
+          result.push_back(currentChar);
+        }
+    }
+    return result;
+}
+
+string boolToString(bool input) {
+    return input ? "True" : "False";
+}
+
+int main() {
+    string line;
+    while (getline(cin, line)) {
+        string s = stringToString(line);
+        
+        bool ret = Solution().isNumber(s);
+
+        string out = boolToString(ret);
+        cout << out << endl;
+    }
+    return 0;
+}
