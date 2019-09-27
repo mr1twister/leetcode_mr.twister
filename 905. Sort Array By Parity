@@ -1,0 +1,19 @@
+https://leetcode.com/problems/sort-array-by-parity/
+class Solution {
+public:
+    vector<int> sortArrayByParity(vector<int>& A) {
+        bool ex = true;
+        while (ex) {
+            ex = false;
+            for (int i = 0; i < A.size() - 1; i++) {
+                if ((A[i] % 2 == 1) and (A[i + 1] % 2 == 0)) {
+                    int t = A[i];
+                    A[i] = A[i+1];
+                    A[i+1] = t;
+                    ex = true;
+                }
+            }
+        }
+        return A;
+    }
+};
