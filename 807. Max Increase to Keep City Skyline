@@ -1,0 +1,33 @@
+https://leetcode.com/problems/max-increase-to-keep-city-skyline/
+class Solution {
+public:
+    int maxIncreaseKeepingSkyline(vector<vector<int>>& grid) {
+        vector <int> top = {};
+        vector <int> left = {};
+        int s = 0;
+        int maxx;
+        int maxy;
+        
+        for (int i = 0; i < grid.size(); i++) {
+            maxx = 0;
+            maxy = 0;
+            for (int j = 0; j < grid[i].size(); j++) {
+                if (grid[i][j] > maxx) maxx = grid[i][j];
+                if (grid[j][i] > maxy) maxy = grid[j][i];
+            }
+            left.push_back(maxx);
+            top.push_back(maxy);
+        }
+        
+        for (int i = 0; i < grid.size(); i++) {
+            for (int j = 0; j < grid[i].size(); j++) {
+                if ((grid[i][j] < left[i]) && (grid[i][j] < top[j])) {
+                    if (left[i] < top[j]) s += left[i] - grid[i][j];
+                    else s += top[j] - grid[i][j];
+                }
+            }
+        }
+        
+        return s;
+    }
+};
