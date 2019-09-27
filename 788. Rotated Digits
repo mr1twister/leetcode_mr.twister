@@ -1,0 +1,61 @@
+https://leetcode.com/problems/rotated-digits/submissions/
+class Solution {
+public:
+	void parse(int n, vector<int>& vec) {
+		vec.push_back(n % 10);
+		int temp = n / 10;
+		if (temp == 0) return;
+		parse(temp, vec);
+	}
+
+	int trans(int c) {
+		if ((c == 0) || (c == 1) || (c == 8)) return c;
+		if (c == 2) return 5;
+		if (c == 5) return 2;
+		if (c == 6) return 9;
+		if (c == 9) return 6;
+		return -1;
+	}
+
+	int rotatedDigits(int N) {
+		vector <int> t;
+		vector <int> r;
+		bool f, fz;
+		int s = 0;
+
+		for (int i = 1; i <= N; i++) {
+			t.clear();
+			r.clear();
+			parse(i, t);
+			f = true;
+			fz = true;
+			for (int j = 0; j < t.size(); j++) {
+				r.push_back(trans(t[j]));
+				if (t[j] != r[j]) f = false;
+				if (r[j] == -1) {
+					fz = false;
+					break;
+				}
+			}
+			if (!f && fz) s++;
+		}
+		return s;
+	}
+};
+
+int stringToInteger(string input) {
+    return stoi(input);
+}
+
+int main() {
+    string line;
+    while (getline(cin, line)) {
+        int N = stringToInteger(line);
+        
+        int ret = Solution().rotatedDigits(N);
+
+        string out = to_string(ret);
+        cout << out << endl;
+    }
+    return 0;
+}
