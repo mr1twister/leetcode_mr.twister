@@ -1,0 +1,44 @@
+https://leetcode.com/problems/positions-of-large-groups/
+class Solution {
+public:
+	vector<vector<int>> largeGroupPositions(string S) {
+		vector<vector<int>> res;
+		if (S.size() < 3) {
+			return res;
+		}
+		if (S.size() == 3) {
+			if (S[0] == S[1] && S[1] == S[2]) {
+				res.resize(1);
+				res[0].push_back(0);
+				res[0].push_back(2);
+				return res;;
+			}
+			else {
+				return res;
+			}
+		}
+		int start = 0;
+		int fin = 0;
+		int kol = 0;
+		int st = 0;
+		for (int i = 0; i < S.length() - 1; i++) {
+			kol = 1;
+			int j = i + 1;
+			while (j < S.size() && S[i] == S[j]) {
+				kol++;
+				j++;
+			}
+			if (kol > 2) {
+				start = i;
+				fin = j;
+				res.resize(st + 1);
+				res[st].push_back(i);
+				res[st].push_back(j - 1);
+				st++;
+			}
+			i = j;
+			i--;
+		}
+		return res;
+	}
+};
