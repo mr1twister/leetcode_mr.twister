@@ -1,4 +1,4 @@
-https://leetcode.com/problems/self-dividing-numbers/submissions/
+https://leetcode.com/problems/self-dividing-numbers/
 class Solution {
 public:
 	void parse(int n, vector<int>& vec) {
