@@ -1,0 +1,27 @@
+https://leetcode.com/problems/find-in-mountain-array/
+/**
+ * // This is the MountainArray's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * class MountainArray {
+ *   public:
+ *     int get(int index);
+ *     int length();
+ * };
+ */
+class Solution {
+public:
+    
+    int find(int target, MountainArray nums){
+        for(int i = 0; i<nums.length(); i++){
+            if(nums.get(i)==target){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    int findInMountainArray(int target, MountainArray &mountainArr) {
+        int z = find(target, mountainArr);
+        return z;
+    }
+};
