@@ -1,0 +1,32 @@
+https://leetcode.com/problems/4sum/
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        vector<vector<int>> result;
+        sort(nums.begin(), nums.end());
+        for (int i = 0, n = nums.size(); i <= n - 4; i++) {
+            if (i == 0 || nums[i] > nums[i - 1]) {
+                for (int j = i + 1; j <= n - 3; j++) {
+                    if (nums[j] > nums[j - 1] || (nums[j] == nums[j-1] && i == j - 1)) {
+                        int start = j + 1, end = n - 1;
+                        while (start < end) {
+                            int sum = nums[i] + nums[j] + nums[start] + nums[end];
+                            if (sum == target) {
+                                result.push_back({nums[i], nums[j], nums[start], nums[end]});
+                            }
+                            if (sum < target) {
+                                int curr = start;
+                                while (nums[curr] == nums[start] && start < end) start++;
+                            }
+                            else {
+                                int curr = end;
+                                while (nums[curr] == nums[end] && start < end) end--;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+};
