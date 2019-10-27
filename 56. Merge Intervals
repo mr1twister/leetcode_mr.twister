@@ -1,0 +1,34 @@
+https://leetcode.com/problems/merge-intervals/
+class Solution {
+private:
+    bool isMergable(vector<int> intervalA, vector<int> intervalB){
+        int minA = intervalA[0];
+        int maxA = intervalA[1];
+        int minB = intervalB[0];
+        int maxB = intervalB[1];
+        return minA <= maxB && minB <= maxA;
+        
+    }
+  
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        if (intervals.size() == 0){
+            return intervals;
+        }
+        vector<vector<int>> ans;
+        sort(intervals.begin(), intervals.end());
+        vector<int> res = intervals[0];
+        for (int i = 1; i<intervals.size();i++){
+            if (isMergable(res, intervals[i])){
+                // merge the two intervals:
+                res = {min(res[0], intervals[i][0]),max(res[1], intervals[i][1])};
+            } else{
+                ans.push_back(res);
+                res = intervals[i];
+            }
+        }
+        ans.push_back(res);
+        return ans;
+        
+    }
+};
