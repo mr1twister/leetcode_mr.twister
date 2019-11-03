@@ -1,0 +1,125 @@
+https://leetcode.com/problems/x-of-a-kind-in-a-deck-of-cards/
+class Solution {
+public:
+    bool hasGroupsSizeX(vector<int>& nums) {
+        if(nums.size()==1){
+            return false;
+        }
+        bool fl = false;
+        sort(nums.begin(), nums.end());
+        if(nums[nums.size()-1]!=nums[nums.size()-2]){
+            return false;
+        }
+        vector<int> res;
+        int kola = 1;
+        for(int i = 0; i<nums.size()-1; i++){
+            int kol = 1;
+            int j = i+1;
+            for(j = i+1; j<nums.size(); j++){
+                if(nums[i]==nums[j]){
+                    kol++;
+                    kola = kol;
+                }else{
+                    if(kol == 1){
+                        return false;
+                    }
+                    res.push_back(kol);
+                    i = j-1;
+                    kola = 0;
+                    break;
+                }
+            }
+            if(j == nums.size()){
+                break;
+            }
+        }
+        res.push_back(kola);
+        int ch = 0;
+        sort(res.begin(), res.end());
+        if(!fl && res[0]%7 == 0){
+            ch = 7;
+            fl = true;
+            for(int j = 1; j<res.size(); j++){
+                if(res[j]%ch != 0){
+                    fl = false;
+                    break;
+                }
+            }
+        }
+        if(!fl && res[0]%5 == 0){
+            ch = 5;
+            fl = true;
+            for(int j = 1; j<res.size(); j++){
+                if(res[j]%ch != 0){
+                    fl = false;
+                    break;
+                }
+            }
+        }
+        if(!fl && res[0]%3 == 0){
+            ch = 3;
+            fl = true;
+             for(int j = 1; j<res.size(); j++){
+                if(res[j]%ch != 0){
+                    fl = false;
+                    break;
+                }
+            }
+        }
+        if(!fl && res[0]%2 == 0){
+            ch = 2;
+            fl = true;
+             for(int j = 1; j<res.size(); j++){
+                if(res[j]%ch != 0){
+                    fl = false;
+                    break;
+                }
+            }
+        }
+        return fl;
+    }
+};
+
+void trimLeftTrailingSpaces(string &input) {
+    input.erase(input.begin(), find_if(input.begin(), input.end(), [](int ch) {
+        return !isspace(ch);
+    }));
+}
+
+void trimRightTrailingSpaces(string &input) {
+    input.erase(find_if(input.rbegin(), input.rend(), [](int ch) {
+        return !isspace(ch);
+    }).base(), input.end());
+}
+
+vector<int> stringToIntegerVector(string input) {
+    vector<int> output;
+    trimLeftTrailingSpaces(input);
+    trimRightTrailingSpaces(input);
+    input = input.substr(1, input.length() - 2);
+    stringstream ss;
+    ss.str(input);
+    string item;
+    char delim = ',';
+    while (getline(ss, item, delim)) {
+        output.push_back(stoi(item));
+    }
+    return output;
+}
+
+string boolToString(bool input) {
+    return input ? "True" : "False";
+}
+
+int main() {
+    string line;
+    while (getline(cin, line)) {
+        vector<int> deck = stringToIntegerVector(line);
+        
+        bool ret = Solution().hasGroupsSizeX(deck);
+
+        string out = boolToString(ret);
+        cout << out << endl;
+    }
+    return 0;
+}
