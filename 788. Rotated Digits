@@ -1,4 +1,4 @@
-https://leetcode.com/problems/rotated-digits/submissions/
+https://leetcode.com/problems/rotated-digits/
 class Solution {
 public:
 	void parse(int n, vector<int>& vec) {
