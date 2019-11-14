@@ -1,0 +1,32 @@
+https://leetcode.com/problems/daily-temperatures/
+class Solution {
+public:
+    int findm(vector<int> x){
+        sort(x.begin(),x.end());
+        return x[x.size()-1];
+    }
+    vector<int> dailyTemperatures(vector<int>& T) {
+        vector<int> res;
+        if(T.size()==0)
+            return res;
+        int m=findm(T);
+        for(int i=0;i<T.size()-1;i++){
+            if(T[i]==m){
+                res.push_back(0);
+            }
+            else{
+                for(int j=i+1;j<T.size();j++){
+                    if(T[i]<T[j]){
+                        res.push_back(j-i);
+                        break;
+                    }
+                    if(j==T.size()-1){
+                        res.push_back(0);
+                    }
+                }
+            }
+        }
+        res.push_back(0);
+        return res;
+    }
+};
