@@ -1,0 +1,48 @@
+https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+
+class Solution {
+public:
+   void find(vector<int> &nums, vector<int> &res, int &i, int target,int n,int &k){
+       if(i==n&&res.size()==0){
+           res.push_back(-1);
+           res.push_back(-1);
+           return;
+       }else{
+           if(i==n&&nums.size()==1){
+               res.push_back(res[0]);
+               return;
+           }else{ 
+               if(res.size()==1&&i==n){
+                   res.push_back(res[0]+k-1);
+                   return;
+               }if(i==n){
+                   return;
+               } 
+           }
+       }if(nums[i]==target){
+           if(res.size()==0){
+               res.push_back(i);
+           }
+           k++;
+       }
+       if(res.size()==1&&i==n-1&&nums[i]==target){
+           res.push_back(res[0]+k-1);
+           return;
+       }
+       i++;
+       find(nums,res,i,target,n,k);
+   }
+    vector<int> searchRange(vector<int>& nums, int target){
+        vector<int> res;
+        if(nums.size()==0){
+            res.push_back(-1);
+            res.push_back(-1);
+            return res;
+        }
+        int i=0;
+        int k=0;
+        int n=nums.size();
+        find(nums,res,i,target,n,k);
+        return res;
+    }
+};
