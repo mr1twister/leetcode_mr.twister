@@ -1,0 +1,14 @@
+https://leetcode.com/problems/valid-perfect-square/
+
+class Solution {
+public:
+    bool isPerfectSquare(int num) {
+        int x=sqrt(num);
+       if ((x*x==num)&&(num%x==0))
+       {
+           return true;
+       }else{
+            return false;
+        }
+    }
+};
