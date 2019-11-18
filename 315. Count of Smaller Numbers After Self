@@ -1,0 +1,27 @@
+https://leetcode.com/problems/count-of-smaller-numbers-after-self/
+
+class Solution {
+public:
+    vector<int> countSmaller(vector<int>& nums) {
+        vector<int> res;
+        if(nums.size()==0)
+            return res;
+        if(nums.size()==1)
+        {
+            res.push_back(0);
+            return res;
+        }
+        for(int i=0;i<nums.size()-1;i++)
+        {
+            int k=0;
+            for(int j=i+1;j<nums.size();j++)
+            {
+                if(nums[i]>nums[j])
+                    k++;
+            }
+            res.push_back(k);
+        }
+        res.push_back(0);
+        return res;
+    }
+};
