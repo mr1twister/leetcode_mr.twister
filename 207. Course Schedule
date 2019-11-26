@@ -1,0 +1,32 @@
+https://leetcode.com/problems/course-schedule/
+
+class Solution {
+public:
+    bool dfs(vector<vector<int>> &g, vector<int> &visited, int i){
+        if (visited[i] == -1) 
+            return false;
+        if (visited[i] == 1)  
+            return true;
+        visited[i] = -1;
+        for (auto it : g[i]){
+            if (!dfs(g, visited, it))
+                return false;
+        }
+        visited[i] = 1;
+        return true;
+    }
+    
+    bool canFinish(int n, vector<vector<int>>& p) {
+         vector<int> visited(n, 0);
+        vector<vector<int>> g(n);
+        for (int i=0; i<p.size(); i++)
+            g[p[i][1]].push_back(p[i][0]);
+        
+        for (int i=0; i<n; i++){
+            if (!dfs(g, visited, i)){
+                return false;
+            }
+        }
+        return true;
+    }
+};
