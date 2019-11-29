@@ -1,0 +1,25 @@
+https://leetcode.com/problems/two-city-scheduling/
+
+class Solution {
+public:
+    
+    static bool compare(vector<int>& A, vector<int>& B){
+        return (A[0]-A[1])<(B[0]-B[1]);
+    }
+    
+    int twoCitySchedCost(vector<vector<int>>& costs) {
+        vector<int> res;
+        sort(costs.begin(), costs.end(), compare);
+        for(int i = 0; i<costs.size()/2; i++){
+            res.push_back(costs[i][0]);
+        }
+        for(int i = costs.size()/2; i<costs.size(); i++){
+            res.push_back(costs[i][1]);
+        }
+        int ans = 0;
+        for(int i = 0; i<res.size(); i++){
+            ans+=res[i];
+        }
+        return ans;
+    }
+};
