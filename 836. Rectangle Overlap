@@ -1,0 +1,12 @@
+https://leetcode.com/problems/rectangle-overlap/
+
+class Solution {
+public:
+    bool isRectangleOverlap(vector<int>& rec1, vector<int>& rec2) {
+		long int maxl = max(rec1[1], rec2[1]);
+		long int minr = min(rec1[3], rec2[3]);
+		long int maxBot = max(rec1[0], rec2[0]);
+		long int minTop = min(rec1[2], rec2[2]);
+		return (maxl<minr)&&(maxBot<minTop);
+    }
+};
